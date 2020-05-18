@@ -1,0 +1,43 @@
+﻿@model EditEmployeeViewModel
+@{
+    ViewData["Title"] = "Edit";
+    var photoPath = "~/images/" + (Model.ExistingPhotoPath ?? "noimage.jpg");
+}
+
+<h1>Edit Employee</h1>
+
+<form method="post" enctype="multipart/form-data">
+    <input hidden asp-for="@Model.EmployeeId" />
+    <input hidden asp-for="@Model.ExistingPhotoPath" />
+    <div class="container justify-content-center">
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" asp-for="@Model.EmployeeName"></label>
+            <div class="col-sm-8">
+                <input type="text" asp-for="@Model.EmployeeName" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" asp-for="@Model.Email"></label>
+            <div class="col-sm-8">
+                <input type="text" asp-for="@Model.Email" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" asp-for="@Model.Department"></label>
+            <div class="col-sm-8">
+                <select asp-for="@Model.Department" asp-items="Html.GetEnumSelectList<Department>()"></select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" asp-for="@Model.Photo"></label>
+            <div class="col-sm-8">
+                <input asp-for="@Model.Photo" class="form-control custom-file-input" />
+                <label class="custom-file-label"> Click here to Edit Photo...</label>
+            </div>
+        </div>       
+            <img src="@photoPath" class="card-img-top img-thumbnail" asp-append-version="true" />
+        <button type="submit" class="btn btn-primary">Update</button>
+        <a asp-action="Index" asp-controller="home" class="btn btn-danger">Cancel</a>
+    </div>
+</form>
+

@@ -17,5 +17,10 @@ namespace EmployeeManagementPractice_V1.Models
         {
             return _dbContext.Employees;
         }
+
+        public Employee GetEmployeeById(int id)
+        {
+            return _dbContext.Employees.FirstOrDefault(e => e.EmployeeId == id);
+        }
     }
 }

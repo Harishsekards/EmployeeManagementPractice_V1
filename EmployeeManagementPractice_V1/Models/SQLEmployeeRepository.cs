@@ -22,5 +22,13 @@ namespace EmployeeManagementPractice_V1.Models
         {
             return _dbContext.Employees.FirstOrDefault(e => e.EmployeeId == id);
         }
+
+        public Employee UpdateEmployee(Employee updatedEmployee)
+        {
+            var model = _dbContext.Employees.Attach(updatedEmployee);
+            model.State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _dbContext.SaveChanges();
+            return updatedEmployee;
+        }
     }
 }

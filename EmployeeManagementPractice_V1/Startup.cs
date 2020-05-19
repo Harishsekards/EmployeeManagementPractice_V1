@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using EmployeeManagementPractice_V1.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -26,6 +27,7 @@ namespace EmployeeManagementPractice_V1
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc(options => options.EnableEndpointRouting = false);
+            services.AddAutoMapper(typeof(EmployeeProfile));
             services.AddDbContextPool<AppDbContext>(options =>
             {
                 options.UseSqlServer(configuration.GetConnectionString("EmployeeManagementPracticeCS"));

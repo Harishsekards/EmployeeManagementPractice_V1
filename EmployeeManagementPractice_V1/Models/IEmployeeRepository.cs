@@ -9,5 +9,6 @@ namespace EmployeeManagementPractice_V1.Models
     {
         public IEnumerable<Employee> GetAllEmployees();
         public Employee GetEmployeeById(int id);
+        public Employee UpdateEmployee(Employee updatedEmployee);
     }
 }

@@ -1,14 +1,14 @@
 ﻿@model EditEmployeeViewModel
 @{
     ViewData["Title"] = "Edit";
-    var photoPath = "~/images/" + (Model.ExistingPhotoPath ?? "noimage.jpg");
+    var photoPath = "~/images/" + (Model.PhotoPath ?? "noimage.jpg");
 }
 
 <h1>Edit Employee</h1>
 
 <form method="post" enctype="multipart/form-data">
     <input hidden asp-for="@Model.EmployeeId" />
-    <input hidden asp-for="@Model.ExistingPhotoPath" />
+    <input hidden asp-for="@Model.PhotoPath" />
     <div class="container justify-content-center">
         <div class="form-group row">
             <label class="col-sm-2 col-form-label" asp-for="@Model.EmployeeName"></label>

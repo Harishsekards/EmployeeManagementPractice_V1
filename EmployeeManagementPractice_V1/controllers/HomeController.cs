@@ -39,10 +39,21 @@ namespace EmployeeManagementPractice_V1.controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            Employee employee = _employeeRepository.GetEmployeeById(id);
-            EditEmployeeViewModel editEmployeeViewModel = new EditEmployeeViewModel();
-            mapper.Map(employee,editEmployeeViewModel);           
-            return View(editEmployeeViewModel);
+            if (id != 0)
+            {
+                ViewBag.Title = "Edit Employee";
+                Employee employee = _employeeRepository.GetEmployeeById(id);
+                EditEmployeeViewModel editEmployeeViewModel = new EditEmployeeViewModel();
+                mapper.Map(employee, editEmployeeViewModel);
+                return View(editEmployeeViewModel);
+            }
+            ViewBag.Title = "Create Employee";
+            EditEmployeeViewModel editEmployeeViewModel_Create = new EditEmployeeViewModel()
+            {                
+                Department = Department.CS,
+                PhotoPath = "noimage.jpg"
+            };
+            return View(editEmployeeViewModel_Create);
         }
 
         [HttpPost]
@@ -55,8 +66,12 @@ namespace EmployeeManagementPractice_V1.controllers
             }
             Employee employee = new Employee();
             mapper.Map(updatedemployee, employee);
-            employee.PhotoPath = string.IsNullOrEmpty(uniqueName) ? updatedemployee.PhotoPath : uniqueName;                       
-            _employeeRepository.UpdateEmployee(employee);
+            employee.PhotoPath = string.IsNullOrEmpty(uniqueName) ? updatedemployee.PhotoPath : uniqueName;
+            if (updatedemployee.EmployeeId != 0)
+            {
+                _employeeRepository.UpdateEmployee(employee);
+            }
+            _employeeRepository.CreateEmployee(employee);
             return RedirectToAction("details",new {id= employee.EmployeeId});
         }
 

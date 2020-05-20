@@ -1,10 +1,10 @@
 ﻿@model EditEmployeeViewModel
 @{
-    ViewData["Title"] = "Edit";
+    
     var photoPath = "~/images/" + (Model.PhotoPath ?? "noimage.jpg");
 }
 
-<h1>Edit Employee</h1>
+<h1>@ViewBag.Title</h1>
 
 <form method="post" enctype="multipart/form-data">
     <input hidden asp-for="@Model.EmployeeId" />
@@ -35,7 +35,7 @@
                 <label class="custom-file-label"> Click here to Edit Photo...</label>
             </div>
         </div>       
-            <img src="@photoPath" class="card-img-top img-thumbnail" asp-append-version="true" />
+            <img src="@photoPath" height="50" width="50" class="card-img-top img-thumbnail" asp-append-version="true"  />
         <button type="submit" class="btn btn-primary">Update</button>
         <a asp-action="Index" asp-controller="home" class="btn btn-danger">Cancel</a>
     </div>

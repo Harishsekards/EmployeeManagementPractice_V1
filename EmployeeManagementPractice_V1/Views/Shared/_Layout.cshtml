@@ -28,6 +28,26 @@
     <title>@ViewBag.Title</title>
 </head>
 <body>
+    <div class="container">
+        <nav class=" navbar navbar-expand-sm bg-light">
+            <a class="navbar-brand" href="#">
+                <img src="~/images/nophoto.jpg" height="30" width="60" />
+            </a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsiblenavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item m-2">
+                        <a asp-action="Index" asp-controller="home">List</a>
+                    </li>
+                    <li class="nav-item m-2">
+                        <a asp-action="Edit" asp-controller="home"> Create</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
     <div>
         @RenderBody()
     </div>

@@ -13,6 +13,14 @@ namespace EmployeeManagementPractice_V1.Models
         {
             this._dbContext = dbContext;
         }
+
+        public Employee CreateEmployee(Employee newEmployee)
+        {
+            _dbContext.Employees.Add(newEmployee);
+            _dbContext.SaveChanges();
+            return newEmployee;
+        }
+
         public IEnumerable<Employee> GetAllEmployees()
         {
             return _dbContext.Employees;

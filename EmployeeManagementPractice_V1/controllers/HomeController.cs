@@ -25,15 +25,20 @@ namespace EmployeeManagementPractice_V1.controllers
         }
         public IActionResult Index()
         {
+            
             var model = _employeeRepository.GetAllEmployees();
             return View(model);
         }
 
         [HttpGet]
         public IActionResult Details(int id)
-        {
+        {                                    
             var model = _employeeRepository.GetEmployeeById(id);
-            return View(model);
+            if(model != null)
+            {
+                return View(model);
+            }                            
+            return View("NotFound",id);
         }
 
         [HttpGet]
@@ -59,20 +64,24 @@ namespace EmployeeManagementPractice_V1.controllers
         [HttpPost]
         public IActionResult Edit(EditEmployeeViewModel updatedemployee)
         {
-            string uniqueName = null;
-            if (updatedemployee.Photo != null)
+            if (ModelState.IsValid)
             {
-                uniqueName = ProcessUploadedImage(updatedemployee);
+                string uniqueName = null;
+                if (updatedemployee.Photo != null)
+                {
+                    uniqueName = ProcessUploadedImage(updatedemployee);
+                }
+                Employee employee = new Employee();
+                mapper.Map(updatedemployee, employee);
+                employee.PhotoPath = string.IsNullOrEmpty(uniqueName) ? updatedemployee.PhotoPath : uniqueName;
+                if (updatedemployee.EmployeeId != 0)
+                {
+                    _employeeRepository.UpdateEmployee(employee);
+                }
+                _employeeRepository.CreateEmployee(employee);
+                return RedirectToAction("details", new { id = employee.EmployeeId });
             }
-            Employee employee = new Employee();
-            mapper.Map(updatedemployee, employee);
-            employee.PhotoPath = string.IsNullOrEmpty(uniqueName) ? updatedemployee.PhotoPath : uniqueName;
-            if (updatedemployee.EmployeeId != 0)
-            {
-                _employeeRepository.UpdateEmployee(employee);
-            }
-            _employeeRepository.CreateEmployee(employee);
-            return RedirectToAction("details",new {id= employee.EmployeeId});
+            return View(updatedemployee);
         }
 
         private string ProcessUploadedImage(EditEmployeeViewModel updatedemployee)

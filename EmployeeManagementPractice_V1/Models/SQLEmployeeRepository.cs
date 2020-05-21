@@ -23,6 +23,14 @@ namespace EmployeeManagementPractice_V1.Models
 
         public IEnumerable<Employee> GetAllEmployees()
         {
+            try
+            {
+                return _dbContext.Employees;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
             return _dbContext.Employees;
         }
 

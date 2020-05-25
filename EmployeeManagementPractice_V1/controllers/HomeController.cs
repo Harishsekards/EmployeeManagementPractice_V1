@@ -32,7 +32,7 @@ namespace EmployeeManagementPractice_V1.controllers
 
         [HttpGet]
         public IActionResult Details(int id)
-        {                                    
+        {            
             var model = _employeeRepository.GetEmployeeById(id);
             if(model != null)
             {
@@ -96,5 +96,9 @@ namespace EmployeeManagementPractice_V1.controllers
             }
             return uniqueName;
         }
+
+       
+
+       
     }
 }

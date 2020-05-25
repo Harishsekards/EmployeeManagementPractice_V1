@@ -7,6 +7,7 @@ using EmployeeManagementPractice_V1.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,6 +33,7 @@ namespace EmployeeManagementPractice_V1
             {
                 options.UseSqlServer(configuration.GetConnectionString("EmployeeManagementPracticeCS"));
             });
+            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
             services.AddScoped<IEmployeeRepository,SQLEmployeeRepository>();
         }
 
@@ -50,6 +52,7 @@ namespace EmployeeManagementPractice_V1
             app.UseStaticFiles();
             app.UseRouting();
             app.UseStatusCodePagesWithReExecute("/Error/{0}");
+            app.UseAuthentication();
             app.UseMvc(routes => {
                 routes.MapRoute("default", "{controller=home}/{action=index}/{id?}");
             });            
